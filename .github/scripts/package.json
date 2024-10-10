@@ -1,0 +1,14 @@
+{
+  "name": "pr-commenter",
+  "version": "1.0.0",
+  "description": "A script to comment PR descriptions",
+  "main": "comment-pr.js",
+  "dependencies": {
+    "@octokit/rest": "^19.0.0",
+    "canvas": "^2.8.0",
+    "chart.js": "^3.7.0"
+  },
+  "scripts": {
+    "start": "node comment-pr.js"
+  }
+}
