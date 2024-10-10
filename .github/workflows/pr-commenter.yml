@@ -1,0 +1,26 @@
+name: JS PR Description Commenter
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  comment-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: .github/scripts
+
+    - name: Run script to comment PR
+      run: node .github/scripts/comment-pr.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
