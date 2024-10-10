@@ -15,9 +15,9 @@ async function generateChart() {
       datasets: [{
         label: 'My First dataset',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgb(1, 0, 0)',
+        borderColor: 'rgb(75, 192, 192)',
         borderWidth: 1,
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [0, 1, 2, 3, 4, 5, 6],
       }]
     },
     options: {
@@ -29,6 +29,7 @@ async function generateChart() {
     }
   };
 
+  // Render the chart to a buffer
   return chartJSNodeCanvas.renderToBuffer(configuration);
 }
 
@@ -51,7 +52,7 @@ async function run() {
 
     // Generar el gráfico
     const imageBuffer = await generateChart();
-    const imagePath = path.join(__dirname, 'chart1.png');
+    const imagePath = path.join(__dirname, 'chart.png');
     fs.writeFileSync(imagePath, imageBuffer);
     console.log('Gráfico generado y guardado en chart.png');
 
@@ -76,6 +77,9 @@ async function run() {
     });
 
     console.log(`Imagen subida a ${imageUploadPath}`);
+
+    // Esperar un poco para asegurarse de que la imagen esté disponible
+    await new Promise(resolve => setTimeout(resolve, 5000)); // Espera 5 segundos
 
     const imageUrl = `https://github.com/${owner}/${repo}/blob/main/${imageUploadPath}?raw=true`;
 
