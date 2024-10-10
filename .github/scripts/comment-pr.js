@@ -15,7 +15,7 @@ async function generateChart() {
       datasets: [{
         label: 'My First dataset',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgb(1, 0, 0)',
         borderWidth: 1,
         data: [65, 59, 80, 81, 56, 55, 40],
       }]
@@ -51,7 +51,7 @@ async function run() {
 
     // Generar el gráfico
     const imageBuffer = await generateChart();
-    const imagePath = path.join(__dirname, 'chart.png');
+    const imagePath = path.join(__dirname, 'chart1.png');
     fs.writeFileSync(imagePath, imageBuffer);
     console.log('Gráfico generado y guardado en chart.png');
 
@@ -74,6 +74,8 @@ async function run() {
         email: 'action@github.com'
       }
     });
+
+    console.log(`Imagen subida a ${imageUploadPath}`);
 
     const imageUrl = `https://github.com/${owner}/${repo}/blob/main/${imageUploadPath}?raw=true`;
 
