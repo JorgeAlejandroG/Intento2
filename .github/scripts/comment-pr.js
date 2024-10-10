@@ -84,11 +84,10 @@ async function run() {
     const imageUrl = `https://github.com/${owner}/${repo}/blob/main/${imageUploadPath}?raw=true`;
 
     const commentBody = `
-      **Descripción del PR:**
-      ${prDescription}
-
-      ![Generated Chart](${imageUrl})
-    `;
+  **Descripción del PR:**
+  ${prDescription} ` + "\n" +
+ `![Generated Chart](${imageUrl})
+`;
 
     await octokit.issues.createComment({
       owner,
