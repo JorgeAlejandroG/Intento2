@@ -3,21 +3,29 @@ const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 const fs = require('fs');
 const path = require('path');
 
+// Función para generar datos aleatorios
+function getRandomData(length, max) {
+  return Array.from({ length }, () => Math.floor(Math.random() * max));
+}
+
 async function generateChart() {
   const width = 800; // Width of the chart
   const height = 600; // Height of the chart
   const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
+
+  // Generar datos aleatorios
+  const randomData = getRandomData(7, 100); // 7 datos con valores de 0 a 100
 
   const configuration = {
     type: 'bar',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [{
-        label: 'My First dataset',
+        label: 'Random dataset',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgb(75, 192, 192)',
         borderWidth: 1,
-        data: [0, 1, 2, 3, 4, 5, 6],
+        data: randomData,
       }]
     },
     options: {
@@ -29,7 +37,6 @@ async function generateChart() {
     }
   };
 
-  // Render the chart to a buffer
   return chartJSNodeCanvas.renderToBuffer(configuration);
 }
 
@@ -50,7 +57,7 @@ async function run() {
     console.log(`Número del PR: ${prNumber}`);
     console.log(`Descripción del PR: ${prDescription}`);
 
-    // Generar el gráfico
+    // Generar el gráfico con datos aleatorios
     const imageBuffer = await generateChart();
     const imagePath = path.join(__dirname, 'chart.png');
     fs.writeFileSync(imagePath, imageBuffer);
@@ -85,7 +92,9 @@ async function run() {
 
     const commentBody = `
   **Descripción del PR:**
-  ${prDescription} ` + "\n" +
+  ${prDescription} 
+  ----
+  ` + "\n" +
  `![Generated Chart](${imageUrl})
 `;
 
